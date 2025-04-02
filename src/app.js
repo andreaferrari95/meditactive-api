@@ -3,7 +3,6 @@ const app = express();
 const userRoutes = require("./routes/users");
 
 app.use(express.json());
-app.use("/uploads", express.static("uploads")); // Per i file
-app.use("/api/users", userRoutes); // User route
+app.use("/api/users", userRoutes);
 
 module.exports = app;
