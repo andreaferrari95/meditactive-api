@@ -4,6 +4,7 @@ const userModel = require("../models/userModel");
 module.exports = {
   async createUser(req, res) {
     const { name, surname, email, password } = req.body;
+
     if (!name || !surname || !email || !password) {
       return res
         .status(400)
