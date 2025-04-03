@@ -13,7 +13,8 @@ module.exports = {
   // Ottieni tutti gli utenti
   async getAllUsers() {
     const [rows] = await db.execute(
-      "SELECT id, name, surname, email FROM users"
+      "SELECT id, name, surname, email, avatar_url FROM users WHERE id = ?",
+      [id]
     );
     return rows;
   },
@@ -21,7 +22,7 @@ module.exports = {
   // Ottieni un utente per ID
   async getUserById(id) {
     const [rows] = await db.execute(
-      "SELECT id, name, surname, email FROM users WHERE id = ?",
+      "SELECT id, name, surname, email, avatar_url FROM users WHERE id = ?",
       [id]
     );
     return rows[0];
@@ -33,6 +34,13 @@ module.exports = {
       "UPDATE users SET name = ?, surname = ?, email = ? WHERE id = ?",
       [name, surname, email, id]
     );
+  },
+
+  async updateAvatarUrl(id, avatarUrl) {
+    await db.execute("UPDATE users SET avatar_url = ? WHERE id = ?", [
+      avatarUrl,
+      id,
+    ]);
   },
 
   // Elimina un utente

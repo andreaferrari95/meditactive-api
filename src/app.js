@@ -11,5 +11,6 @@ const goalRoutes = require("./routes/goals");
 app.use("/api/users", userRoutes);
 app.use("/api/goal-intervals", intervalRoutes);
 app.use("/api/goals", goalRoutes);
+app.use("/uploads", express.static("uploads"));
 
 module.exports = app;
