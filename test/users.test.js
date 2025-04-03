@@ -2,7 +2,7 @@ import request from "supertest";
 import { expect } from "chai";
 import app from "../src/app.js";
 
-describe("🧪 API /api/users", () => {
+describe("API /api/users", () => {
   it("✅ dovrebbe creare un nuovo utente valido", async () => {
     const res = await request(app)
       .post("/api/users")

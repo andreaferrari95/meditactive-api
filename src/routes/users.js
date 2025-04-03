@@ -6,11 +6,12 @@ import upload from "../middleware/upload.js";
 import userModel from "../models/userModel.js";
 import validateUser from "../middleware/userValidation.js";
 import handleValidation from "../middleware/handleValidation.js";
+import verifyToken from "../middleware/authMiddleware.js";
 
 router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUserById);
-router.patch("/:id", userController.updateUser);
-router.delete("/:id", userController.deleteUser);
+router.patch("/:id", verifyToken, userController.updateUser);
+router.delete("/:id", verifyToken, userController.deleteUser);
 router.post("/", validateUser, handleValidation, userController.createUser);
 
 router.post("/:id/avatar", upload.single("avatar"), async (req, res) => {

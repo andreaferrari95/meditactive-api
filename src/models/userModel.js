@@ -46,6 +46,13 @@ const userModel = {
   async deleteUser(id) {
     await db.execute("DELETE FROM users WHERE id = ?", [id]);
   },
+  async getByEmail(email) {
+    const [rows] = await db.execute(
+      "SELECT id, name, surname, email, password FROM users WHERE email = ?",
+      [email]
+    );
+    return rows[0];
+  },
 };
 
 export default userModel;
