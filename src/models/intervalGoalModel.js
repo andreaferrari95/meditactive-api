@@ -1,6 +1,6 @@
-const db = require("../../config/db");
+import db from "../../config/db.js";
 
-module.exports = {
+const intervalGoalModel = {
   async associateGoalToInterval(intervalId, goalId) {
     if (!intervalId || !goalId) {
       throw new Error("Valori mancanti: intervalId o goalId");
@@ -23,3 +23,5 @@ module.exports = {
     return rows;
   },
 };
+
+export default intervalGoalModel;

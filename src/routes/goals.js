@@ -1,12 +1,14 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const goalController = require("../controllers/goalController");
 
-// CRUD API Goals
+import goalController from "../controllers/goalController.js";
+import validateGoal from "../middleware/goalValidation.js";
+import handleValidation from "../middleware/handleValidation.js";
+
 router.get("/", goalController.getAllGoals);
 router.get("/:id", goalController.getGoalById);
-router.post("/", goalController.createGoal);
-router.patch("/:id", goalController.updateGoal);
+router.post("/", validateGoal, handleValidation, goalController.createGoal);
+router.patch("/:id", validateGoal, handleValidation, goalController.updateGoal);
 router.delete("/:id", goalController.deleteGoal);
 
-module.exports = router;
+export default router;

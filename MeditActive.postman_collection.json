@@ -1,0 +1,120 @@
+{
+  "info": {
+    "_postman_id": "2c34d61a-f21e-4f90-80d9-9e35f6f15f33",
+    "name": "MeditActive API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Crea utente",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Mario\",\n  \"surname\": \"Rossi\",\n  \"email\": \"mario.rossi@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/users",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "users"]
+        }
+      }
+    },
+    {
+      "name": "Get utente",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:4000/api/users/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "users", "1"]
+        }
+      }
+    },
+    {
+      "name": "Crea goal",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Meditazione\",\n  \"description\": \"10 minuti ogni giorno\",\n  \"type\": \"daily\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/goals",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "goals"]
+        }
+      }
+    },
+    {
+      "name": "Get goals",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:4000/api/goals",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "goals"]
+        }
+      }
+    },
+    {
+      "name": "Crea intervallo",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_id\": 1,\n  \"start_date\": \"2024-04-01\",\n  \"end_date\": \"2024-04-30\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/goal-intervals",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "goal-intervals"]
+        }
+      }
+    },
+    {
+      "name": "Associa goal a intervallo",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"goal_id\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/goal-intervals/1/goals",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "goal-intervals", "1", "goals"]
+        }
+      }
+    },
+    {
+      "name": "Visualizza goals di un intervallo",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:4000/api/goal-intervals/1/goals",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "goal-intervals", "1", "goals"]
+        }
+      }
+    }
+  ]
+}

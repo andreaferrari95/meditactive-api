@@ -1,6 +1,6 @@
-const goalIntervalModel = require("../models/goalIntervalModel");
+import goalIntervalModel from "../models/goalIntervalModel.js";
 
-module.exports = {
+const goalIntervalController = {
   async createInterval(req, res) {
     const { user_id, start_date, end_date } = req.body;
 
@@ -90,3 +90,5 @@ module.exports = {
     }
   },
 };
+
+export default goalIntervalController;

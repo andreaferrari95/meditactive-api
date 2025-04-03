@@ -1,15 +1,9 @@
-const bcrypt = require("bcryptjs");
-const userModel = require("../models/userModel");
+import bcrypt from "bcryptjs";
+import userModel from "../models/userModel.js";
 
-module.exports = {
+const userController = {
   async createUser(req, res) {
     const { name, surname, email, password } = req.body;
-
-    if (!name || !surname || !email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Tutti i campi sono obbligatori." });
-    }
 
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -79,3 +73,5 @@ module.exports = {
     }
   },
 };
+
+export default userController;

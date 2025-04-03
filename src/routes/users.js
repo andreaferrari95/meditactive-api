@@ -1,14 +1,17 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const userController = require("../controllers/userController");
-const upload = require("../middleware/upload");
-const userModel = require("../models/userModel");
 
-router.post("/", userController.createUser);
+import userController from "../controllers/userController.js";
+import upload from "../middleware/upload.js";
+import userModel from "../models/userModel.js";
+import validateUser from "../middleware/userValidation.js";
+import handleValidation from "../middleware/handleValidation.js";
+
 router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUserById);
 router.patch("/:id", userController.updateUser);
 router.delete("/:id", userController.deleteUser);
+router.post("/", validateUser, handleValidation, userController.createUser);
 
 router.post("/:id/avatar", upload.single("avatar"), async (req, res) => {
   if (!req.file) {
@@ -29,4 +32,4 @@ router.post("/:id/avatar", upload.single("avatar"), async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

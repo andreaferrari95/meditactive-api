@@ -1,6 +1,6 @@
-const db = require("../../config/db");
+import db from "../../config/db.js";
 
-module.exports = {
+const userModel = {
   // Crea un nuovo utente
   async createUser(name, surname, email, hashedPassword) {
     const [result] = await db.execute(
@@ -13,8 +13,7 @@ module.exports = {
   // Ottieni tutti gli utenti
   async getAllUsers() {
     const [rows] = await db.execute(
-      "SELECT id, name, surname, email, avatar_url FROM users WHERE id = ?",
-      [id]
+      "SELECT id, name, surname, email, avatar_url FROM users"
     );
     return rows;
   },
@@ -48,3 +47,5 @@ module.exports = {
     await db.execute("DELETE FROM users WHERE id = ?", [id]);
   },
 };
+
+export default userModel;

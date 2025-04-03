@@ -1,6 +1,6 @@
-const db = require("../../config/db");
+import db from "../../config/db.js";
 
-module.exports = {
+const goalModel = {
   async getAllGoals() {
     const [rows] = await db.execute("SELECT * FROM goals");
     return rows;
@@ -30,3 +30,5 @@ module.exports = {
     await db.execute("DELETE FROM goals WHERE id = ?", [id]);
   },
 };
+
+export default goalModel;

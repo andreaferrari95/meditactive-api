@@ -1,6 +1,6 @@
-const goalModel = require("../models/goalModel");
+import goalModel from "../models/goalModel.js";
 
-module.exports = {
+const goalController = {
   async getAllGoals(req, res) {
     try {
       const goals = await goalModel.getAllGoals();
@@ -73,3 +73,5 @@ module.exports = {
     }
   },
 };
+
+export default goalController;

@@ -1,16 +1,16 @@
-const express = require("express");
+import express from "express";
+
+import userRoutes from "./routes/users.js";
+import intervalRoutes from "./routes/goalIntervals.js";
+import goalRoutes from "./routes/goals.js";
 
 const app = express();
 
 app.use(express.json());
-
-const userRoutes = require("./routes/users");
-const intervalRoutes = require("./routes/goalIntervals");
-const goalRoutes = require("./routes/goals");
 
 app.use("/api/users", userRoutes);
 app.use("/api/goal-intervals", intervalRoutes);
 app.use("/api/goals", goalRoutes);
 app.use("/uploads", express.static("uploads"));
 
-module.exports = app;
+export default app;

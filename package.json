@@ -1,9 +1,10 @@
 {
   "name": "meditactive-api",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "dev": "nodemon server.js"
   },
   "keywords": [],
@@ -20,6 +21,9 @@
     "mysql2": "^3.14.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "chai": "^5.2.0",
+    "mocha": "^11.1.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.1.0"
   }
 }

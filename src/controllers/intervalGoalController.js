@@ -1,6 +1,6 @@
-const intervalGoalModel = require("../models/intervalGoalModel");
+import intervalGoalModel from "../models/intervalGoalModel.js";
 
-module.exports = {
+const intervalGoalController = {
   async addGoalToInterval(req, res) {
     const { goal_id } = req.body;
     const intervalId = req.params.id;
@@ -23,11 +23,11 @@ module.exports = {
       const goals = await intervalGoalModel.getGoalsByInterval(req.params.id);
       res.json(goals);
     } catch (err) {
-      res
-        .status(500)
-        .json({
-          message: "Errore nel recupero degli obiettivi per intervallo.",
-        });
+      res.status(500).json({
+        message: "Errore nel recupero degli obiettivi per intervallo.",
+      });
     }
   },
 };
+
+export default intervalGoalController;
