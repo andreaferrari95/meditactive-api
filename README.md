@@ -91,14 +91,37 @@ Esegui tutti i test:
 npm test
 ```
 
-Test coprono:
+I test coprono:
 
-- CRUD utenti
-- Validazioni
-- Obiettivi (goals)
-- Intervalli (goal\_intervals)
-- Upload avatar
-- Login JWT
+✅ Autenticazione
+
+Login corretto / errato
+
+✅ Utenti
+
+Creazione utente
+
+Aggiornamento (con token)
+
+Eliminazione (con token)
+
+✅ Goals
+
+CRUD completo
+
+✅ Intervalli
+
+Creazione
+
+Filtro per goal_id, start_date, end_date
+
+Associazione goal ↔ intervallo
+
+✅ Upload avatar
+
+Caricamento immagine
+
+Validazioni file
 
 ---
 
