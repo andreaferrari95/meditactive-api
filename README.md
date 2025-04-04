@@ -41,6 +41,16 @@ Fondata da un insegnante di meditazione con oltre 20 anni di esperienza e una Pr
 
 ---
 
+## 🧩 Funzionalità principali
+
+- 👤 Gestione utenti (CRUD, avatar)
+- 🧘 Gestione obiettivi (CRUD + tipologie)
+- 📆 Intervalli personalizzati
+- 🔗 Associazioni obiettivi-intervalli
+- 🔐 Login con token JWT
+
+---
+
 ## 📦 Setup progetto
 
 1. Clona la repo:
