@@ -1,0 +1,246 @@
+openapi: 3.0.0
+info:
+  title: MeditActive API
+  version: 1.0.0
+  description: API RESTful per la gestione di utenti, obiettivi e intervalli di meditazione.
+
+servers:
+  - url: http://localhost:4000/api
+
+paths:
+  /users:
+    post:
+      summary: Crea un nuovo utente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, surname, email, password]
+              properties:
+                name:
+                  type: string
+                surname:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "201":
+          description: Utente creato con successo
+    get:
+      summary: Ottiene tutti gli utenti
+      responses:
+        "200":
+          description: Lista utenti
+
+  /users/{id}:
+    get:
+      summary: Ottiene un utente per ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Dettagli utente
+    patch:
+      summary: Aggiorna un utente
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                surname:
+                  type: string
+                email:
+                  type: string
+      responses:
+        "200":
+          description: Utente aggiornato
+    delete:
+      summary: Elimina un utente
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Utente eliminato
+
+  /goals:
+    get:
+      summary: Ottieni tutti gli obiettivi
+      responses:
+        "200":
+          description: Lista di tutti i goals
+    post:
+      summary: Crea un nuovo goal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required: [title, type]
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                type:
+                  type: string
+                  enum: [daily, monthly, yearly]
+      responses:
+        "201":
+          description: Goal creato
+
+  /goals/{id}:
+    get:
+      summary: Ottieni un goal per ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: Goal trovato
+    patch:
+      summary: Aggiorna un goal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                type:
+                  type: string
+      responses:
+        "200":
+          description: Goal aggiornato
+    delete:
+      summary: Elimina un goal
+      responses:
+        "200":
+          description: Goal eliminato
+
+  /goal-intervals:
+    get:
+      summary: Ottiene tutti gli intervalli (con filtri opzionali)
+      parameters:
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: goal_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Lista intervalli filtrata
+    post:
+      summary: Crea un intervallo di goal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required: [user_id, start_date, end_date]
+              properties:
+                user_id:
+                  type: integer
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+      responses:
+        "201":
+          description: Intervallo creato
+
+  /goal-intervals/{id}:
+    get:
+      summary: Ottieni un intervallo per ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: Dettagli intervallo
+    patch:
+      summary: Aggiorna le date di un intervallo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+      responses:
+        "200":
+          description: Intervallo aggiornato
+    delete:
+      summary: Elimina un intervallo
+      responses:
+        "200":
+          description: Intervallo eliminato
+
+  /goal-intervals/{id}/goals:
+    get:
+      summary: Ottiene tutti i goals associati a un intervallo
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: Lista dei goals per intervallo
+    post:
+      summary: Associa un goal a un intervallo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required: [goal_id]
+              properties:
+                goal_id:
+                  type: integer
+      responses:
+        "201":
+          description: Goal associato all'intervallo
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
