@@ -8,6 +8,24 @@ servers:
   - url: http://localhost:4000/api
 
 paths:
+  /auth/login:
+    post:
+      summary: Effettua login e restituisce un token JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Token JWT restituito
+
   /users:
     post:
       summary: Crea un nuovo utente
@@ -81,9 +99,11 @@ paths:
       summary: Ottieni tutti gli obiettivi
       responses:
         "200":
-          description: Lista di tutti i goals
+          description: Lista goals
     post:
       summary: Crea un nuovo goal
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -116,6 +136,8 @@ paths:
           description: Goal trovato
     patch:
       summary: Aggiorna un goal
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -133,6 +155,8 @@ paths:
           description: Goal aggiornato
     delete:
       summary: Elimina un goal
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Goal eliminato
@@ -160,6 +184,8 @@ paths:
           description: Lista intervalli filtrata
     post:
       summary: Crea un intervallo di goal
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -193,6 +219,8 @@ paths:
           description: Dettagli intervallo
     patch:
       summary: Aggiorna le date di un intervallo
+      security:
+        - bearerAuth: []
       requestBody:
         content:
           application/json:
@@ -207,6 +235,8 @@ paths:
           description: Intervallo aggiornato
     delete:
       summary: Elimina un intervallo
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Intervallo eliminato
@@ -225,6 +255,8 @@ paths:
           description: Lista dei goals per intervallo
     post:
       summary: Associa un goal a un intervallo
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
