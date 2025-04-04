@@ -15,7 +15,6 @@ Gli utenti possono:
 - Creare obiettivi meditativi giornalieri, mensili o annuali
 - Pianificare intervalli temporali per il raggiungimento di obiettivi
 - Collegare più obiettivi a ciascun intervallo
-- Guadagnare monete virtuali per sostenere progetti sociali e ambientali
 
 Tutto nel rispetto di principi sostenibili: i server utilizzano solo energia rinnovabile. 🌱
 
@@ -26,7 +25,7 @@ Tutto nel rispetto di principi sostenibili: i server utilizzano solo energia rin
 **MeditActive** nasce per aiutare le persone a ritrovare equilibrio interiore e benessere mentale.
 Fondata da un insegnante di meditazione con oltre 20 anni di esperienza e una Project Manager con 16 anni di carriera, l'app intende rendere la meditazione accessibile a tutti.
 
-Il team è composto da 15 professionisti distribuiti in tutta Italia, uniti dalla missione di aiutare gli utenti a migliorare il proprio stile di vita.
+
 
 ---
 
