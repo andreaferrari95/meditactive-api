@@ -1,9 +1,19 @@
 {
   "info": {
-    "_postman_id": "2c34d61a-f21e-4f90-80d9-9e35f6f15f33",
+    "_postman_id": "0a4f5f9c-d1d3-4f78-a4ef-676a7eab3df1",
     "name": "MeditActive API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
   "item": [
     {
       "name": "Crea utente",
@@ -12,27 +22,97 @@
         "header": [{ "key": "Content-Type", "value": "application/json" }],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"name\": \"Mario\",\n  \"surname\": \"Rossi\",\n  \"email\": \"mario.rossi@example.com\",\n  \"password\": \"password123\"\n}"
+          "raw": "{\n  \"name\": \"Test\",\n  \"surname\": \"User\",\n  \"email\": \"test{{timestamp}}@example.com\",\n  \"password\": \"123456\"\n}"
         },
         "url": {
-          "raw": "http://localhost:4000/api/users",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "4000",
-          "path": ["api", "users"]
+          "raw": "{{baseUrl}}/users",
+          "host": ["{{baseUrl}}"],
+          "path": ["users"]
         }
       }
     },
     {
-      "name": "Get utente",
+      "name": "Login (salva token)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var json = pm.response.json();",
+              "if (json.token) {",
+              "  pm.environment.set(\"token\", json.token);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "Get utenti",
       "request": {
         "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
         "url": {
-          "raw": "http://localhost:4000/api/users/1",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "4000",
-          "path": ["api", "users", "1"]
+          "raw": "{{baseUrl}}/users",
+          "host": ["{{baseUrl}}"],
+          "path": ["users"]
+        }
+      }
+    },
+    {
+      "name": "Get utente per ID",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/users/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "1"]
+        }
+      }
+    },
+    {
+      "name": "Aggiorna utente",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated\",\n  \"surname\": \"User\",\n  \"email\": \"updated@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "1"]
+        }
+      }
+    },
+    {
+      "name": "👤 Elimina utente",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/users/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "1"]
         }
       }
     },
@@ -40,30 +120,29 @@
       "name": "Crea goal",
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"Meditazione\",\n  \"description\": \"10 minuti ogni giorno\",\n  \"type\": \"daily\"\n}"
+          "raw": "{\n  \"title\": \"Meditazione\",\n  \"description\": \"10 minuti al giorno\",\n  \"type\": \"daily\"\n}"
         },
         "url": {
-          "raw": "http://localhost:4000/api/goals",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "4000",
-          "path": ["api", "goals"]
+          "raw": "{{baseUrl}}/goals",
+          "host": ["{{baseUrl}}"],
+          "path": ["goals"]
         }
       }
     },
     {
-      "name": "Get goals",
+      "name": "🧘 Get tutti i goals",
       "request": {
         "method": "GET",
         "url": {
-          "raw": "http://localhost:4000/api/goals",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "4000",
-          "path": ["api", "goals"]
+          "raw": "{{baseUrl}}/goals",
+          "host": ["{{baseUrl}}"],
+          "path": ["goals"]
         }
       }
     },
@@ -71,17 +150,34 @@
       "name": "Crea intervallo",
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"user_id\": 1,\n  \"start_date\": \"2024-04-01\",\n  \"end_date\": \"2024-04-30\"\n}"
         },
         "url": {
-          "raw": "http://localhost:4000/api/goal-intervals",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "4000",
-          "path": ["api", "goal-intervals"]
+          "raw": "{{baseUrl}}/goal-intervals",
+          "host": ["{{baseUrl}}"],
+          "path": ["goal-intervals"]
+        }
+      }
+    },
+    {
+      "name": "Filtra intervalli",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/goal-intervals?start_date=2024-04-01&end_date=2024-04-30&goal_id=1",
+          "host": ["{{baseUrl}}"],
+          "path": ["goal-intervals"],
+          "query": [
+            { "key": "start_date", "value": "2024-04-01" },
+            { "key": "end_date", "value": "2024-04-30" },
+            { "key": "goal_id", "value": "1" }
+          ]
         }
       }
     },
@@ -89,30 +185,40 @@
       "name": "Associa goal a intervallo",
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"goal_id\": 1\n}"
         },
         "url": {
-          "raw": "http://localhost:4000/api/goal-intervals/1/goals",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "4000",
-          "path": ["api", "goal-intervals", "1", "goals"]
+          "raw": "{{baseUrl}}/goal-intervals/1/goals",
+          "host": ["{{baseUrl}}"],
+          "path": ["goal-intervals", "1", "goals"]
         }
       }
     },
     {
-      "name": "Visualizza goals di un intervallo",
+      "name": "Upload avatar (form-data)",
       "request": {
-        "method": "GET",
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "avatar",
+              "type": "file",
+              "src": "/percorso/al/file/avatar.jpg"
+            }
+          ]
+        },
         "url": {
-          "raw": "http://localhost:4000/api/goal-intervals/1/goals",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "4000",
-          "path": ["api", "goal-intervals", "1", "goals"]
+          "raw": "{{baseUrl}}/users/1/avatar",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "1", "avatar"]
         }
       }
     }
