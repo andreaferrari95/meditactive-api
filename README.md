@@ -21,7 +21,7 @@ Tutto nel rispetto di principi sostenibili: i server utilizzano solo energia rin
 
 ---
 
-## 👤 Cliente (ipotetico ma realistico)
+## 👤 Cliente (ipotetico)
 
 **MeditActive** nasce per aiutare le persone a ritrovare equilibrio interiore e benessere mentale.
 Fondata da un insegnante di meditazione con oltre 20 anni di esperienza e una Project Manager con 16 anni di carriera, l'app intende rendere la meditazione accessibile a tutti.
